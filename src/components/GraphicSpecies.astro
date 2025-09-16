@@ -1,0 +1,60 @@
+---
+import PlotFigure from "./PlotFigure.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+
+const { species } = Astro.props;
+
+// Filtrer les données pour l'espèce spécifiée
+const penguinsFiltered = penguins.filter(({species: s}) => s === species);
+
+// Couleurs pour chaque espèce
+const colorMap = {
+  "Adelie": "#ff6b35",
+  "Gentoo": "#004e98", 
+  "Chinstrap": "#f77f00"
+};
+---
+
+<div class="species-chart">
+  <h2 class="text-xl font-bold mb-4 text-center">{species} Penguins</h2>
+  <PlotFigure
+    options={{
+      title: `${species} - Culmen Length vs Depth`,
+      width: 600,
+      height: 400,
+      marginLeft: 60,
+      marginBottom: 60,
+      x: {
+        label: "Culmen Length (mm)",
+        grid: true
+      },
+      y: {
+        label: "Culmen Depth (mm)", 
+        grid: true
+      },
+      marks: [
+        Plot.dot(penguinsFiltered, {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          fill: colorMap[species],
+          stroke: colorMap[species],
+          strokeWidth: 1,
+          r: 4,
+          opacity: 0.7,
+          tip: true
+        }),
+       Plot.linearRegressionY(penguinsFiltered, {
+           x: "culmen_length_mm", 
+           y: "culmen_depth_mm",
+           stroke: colorMap[species],
+           strokeWidth: 2,
+           strokeOpacity: 0.8
+         })
+      ],
+    }}
+  />
+  <p class="text-center text-gray-600 mt-2">
+    Nombre d'individus: {penguinsFiltered.length}
+  </p>
+</div>

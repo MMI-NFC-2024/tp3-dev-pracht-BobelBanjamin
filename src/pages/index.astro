@@ -1,0 +1,59 @@
+---
+import PlotFigure from "../components/PlotFigure.astro";
+import Layout from "../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+---
+
+<Layout>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-4">Analyse des Manchots de Palmer</h1>
+    <p class="text-center text-gray-600 mb-8">Étude comparative des trois espèces de manchots</p>
+
+    <nav class="mb-8">
+      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
+        <li><a href="/" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Accueil</a></li>
+        <li><a href="/species/Adelie" class="text-gray-600 hover:text-blue-600 transition-colors">Adelie</a></li>
+        <li><a href="/species/Gentoo" class="text-gray-600 hover:text-blue-600 transition-colors">Gentoo</a></li>
+        <li><a href="/species/Chinstrap" class="text-gray-600 hover:text-blue-600 transition-colors">Chinstrap</a></li>
+        <li><a href="/test-iframe" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a></li>
+        <li><a href="/anchors" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a></li>
+      </ul>
+    </nav>
+
+    <div class="text-center mb-2">
+      <PlotFigure
+        options={{
+          title: "Relation entre longueur et profondeur du bec par espèce",
+          width: 800,
+          height: 500,
+          marginLeft: 80,
+          marginBottom: 80,
+          x: { label: "Longueur du bec (mm)", grid: true },
+          y: { label: "Profondeur du bec (mm)", grid: true },
+          // ⚠️ SSR + JSDOM : pas de légende Plot (canvas)
+          color: { type: "ordinal", legend: false },
+          marks: [
+            Plot.dot(penguins, {
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              fill: "species",
+              stroke: "species",
+              strokeWidth: 1,
+              r: 4,
+              opacity: 0.7
+            })
+          ]
+        }}
+      />
+      <!-- petite légende HTML pour remplacer la legend Plot -->
+      <ul class="flex gap-4 justify-center mt-3 text-sm text-gray-700">
+        <li><span class="inline-block w-3 h-3 rounded-full align-middle mr-1" style="background:#1f77b4"></span>Adelie</li>
+        <li><span class="inline-block w-3 h-3 rounded-full align-middle mr-1" style="background:#ff7f0e"></span>Gentoo</li>
+        <li><span class="inline-block w-3 h-3 rounded-full align-middle mr-1" style="background:#2ca02c"></span>Chinstrap</li>
+      </ul>
+    </div>
+
+    <!-- … le reste de ta page inchangé … -->
+  </div>
+</Layout>

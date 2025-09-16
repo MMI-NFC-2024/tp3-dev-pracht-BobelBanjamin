@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+---
+
+<Layout>
+  <div class="container mx-auto px-4 py-8">
+    <nav class="mb-8">
+      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
+        <li><a href="/species/Adelie" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Adelie</a></li>
+        <li><a href="/species/Gentoo" class="text-gray-600 hover:text-blue-600 transition-colors">Gentoo</a></li>
+        <li><a href="/species/Chinstrap" class="text-gray-600 hover:text-blue-600 transition-colors">Chinstrap</a></li>
+        <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a></li>
+        <li><a href="/test-iframe" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a></li>
+        <li><a href="/anchors" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a></li>
+      </ul>
+    </nav>
+    
+    <div class="text-center">
+      <GraphicSpecies species="Adelie" />
+    </div>
+    
+    <div class="mt-8 bg-orange-50 p-6 rounded-lg">
+      <h3 class="text-lg font-semibold mb-3">À propos des manchots Adelie</h3>
+      <p class="text-gray-700">
+        Les manchots Adelie sont les plus répandus des manchots antarctiques. 
+        Ils se caractérisent par leur petite taille et leurs cercles blancs autour des yeux. 
+        Ces données montrent la relation entre la longueur et la profondeur de leur bec.
+      </p>
+    </div>
+  </div>
+</Layout>

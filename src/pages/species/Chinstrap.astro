@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+---
+
+<Layout>
+  <div class="container mx-auto px-4 py-8">
+    <nav class="mb-8">
+      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
+        <li><a href="/species/Adelie" class="text-gray-600 hover:text-blue-600 transition-colors">Adelie</a></li>
+        <li><a href="/species/Gentoo" class="text-gray-600 hover:text-blue-600 transition-colors">Gentoo</a></li>
+        <li><a href="/species/Chinstrap" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Chinstrap</a></li>
+        <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a></li>
+        <li><a href="/test-iframe" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a></li>
+        <li><a href="/anchors" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a></li>
+      </ul>
+    </nav>
+    
+    <div class="text-center">
+      <GraphicSpecies species="Chinstrap" />
+    </div>
+    
+    <div class="mt-8 bg-yellow-50 p-6 rounded-lg">
+      <h3 class="text-lg font-semibold mb-3">À propos des manchots Chinstrap</h3>
+      <p class="text-gray-700">
+        Les manchots Chinstrap, aussi appelés manchots à jugulaire, sont facilement reconnaissables 
+        grâce à la fine ligne noire qui passe sous leur menton, ressemblant à une sangle de casque. 
+        Ils sont considérés comme les plus agressifs des trois espèces de manchots pygmées.
+      </p>
+    </div>
+  </div>
+</Layout>

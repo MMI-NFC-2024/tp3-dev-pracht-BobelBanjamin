@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GraphicSpecies from "../components/GraphicSpecies.astro";
+---
+
+<Layout>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">Toutes les espèces avec ancres</h1>
+    
+    <nav class="mb-8 sticky top-0 bg-white shadow-md z-10 p-4">
+      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
+        <li><a href="#adelie" class="text-blue-600 hover:text-blue-800 transition-colors">Adelie</a></li>
+        <li><a href="#gentoo" class="text-blue-600 hover:text-blue-800 transition-colors">Gentoo</a></li>
+        <li><a href="#chinstrap" class="text-blue-600 hover:text-blue-800 transition-colors">Chinstrap</a></li>
+        <li><span class="text-gray-400">|</span></li>
+        <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a></li>
+        <li><a href="/test-iframe" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Slider horizontal -->
+    <div class="slider-container">
+      <div class="slider-wrapper">
+        <section id="adelie" class="slider-section">
+          <GraphicSpecies species="Adelie" />
+          <div class="mt-6 bg-orange-50 p-6 rounded-lg">
+            <h3 class="text-lg font-semibold mb-3">À propos des manchots Adelie</h3>
+            <p class="text-gray-700">
+              Les manchots Adelie sont les plus répandus des manchots antarctiques. 
+              Ils se caractérisent par leur petite taille et leurs cercles blancs autour des yeux.
+            </p>
+          </div>
+        </section>
+        
+        <section id="gentoo" class="slider-section">
+          <GraphicSpecies species="Gentoo" />
+          <div class="mt-6 bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-lg font-semibold mb-3">À propos des manchots Gentoo</h3>
+            <p class="text-gray-700">
+              Les manchots Gentoo sont les plus grands manchots après les manchots empereurs et royaux. 
+              Ils sont reconnaissables à leur bande blanche distinctive au-dessus de leurs yeux.
+            </p>
+          </div>
+        </section>
+        
+        <section id="chinstrap" class="slider-section">
+          <GraphicSpecies species="Chinstrap" />
+          <div class="mt-6 bg-yellow-50 p-6 rounded-lg">
+            <h3 class="text-lg font-semibold mb-3">À propos des manchots Chinstrap</h3>
+            <p class="text-gray-700">
+              Les manchots Chinstrap sont facilement reconnaissables grâce à la fine ligne noire 
+              qui passe sous leur menton, ressemblant à une sangle de casque.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .slider-container {
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  
+  .slider-wrapper {
+    display: flex;
+    width: 300%; /* 3 sections de 100% chacune */
+  }
+  
+  .slider-section {
+    width: 33.333%; /* 100% / 3 sections */
+    min-width: 33.333%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Améliorer le défilement horizontal */
+  .slider-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .slider-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .slider-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .slider-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Animation douce pour les liens d'ancres */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Navigation sticky améliorée */
+  nav.sticky {
+    backdrop-filter: blur(10px);
+  }
+</style>
+
+<script>
+  // Script pour améliorer la navigation par ancres dans le slider
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.slider-container');
+    const sections = document.querySelectorAll('.slider-section');
+    
+    // Calculer la largeur d'une section
+    const sectionWidth = slider.offsetWidth;
+    
+    // Gérer les clics sur les liens d'ancres
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        
+        if (targetSection) {
+          // Calculer la position de défilement
+          let scrollPosition = 0;
+          sections.forEach((section, index) => {
+            if (section.id === targetId) {
+              scrollPosition = index * sectionWidth;
+            }
+          });
+          
+          // Défiler vers la section
+          slider.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  });
+</script>
