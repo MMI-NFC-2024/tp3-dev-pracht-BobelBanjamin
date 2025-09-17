@@ -7,20 +7,26 @@ import Layout from "../layouts/Layout.astro";
     <h1 class="text-3xl font-bold text-center mb-8">Visualisation par Iframe</h1>
     
     <nav class="mb-8">
-      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
-        <li><a href="/species/Adelie" target="species-frame" class="text-blue-600 hover:text-blue-800 transition-colors">Adelie</a></li>
-        <li><a href="/species/Gentoo" target="species-frame" class="text-blue-600 hover:text-blue-800 transition-colors">Gentoo</a></li>
-        <li><a href="/species/Chinstrap" target="species-frame" class="text-blue-600 hover:text-blue-800 transition-colors">Chinstrap</a></li>
-        <li><span class="text-gray-400">|</span></li>
-        <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a></li>
-        <li><a href="/anchors" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a></li>
-      </ul>
+      <div class="flex space-x-6 justify-center items-center bg-gray-100 p-4 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <label for="species-select" class="text-gray-600">Espèce:</label>
+          <select id="species-select" class="px-3 py-1 border border-gray-300 rounded-md bg-white text-gray-700 hover:border-blue-500 focus:outline-none focus:border-blue-500">
+            <option value="Adelieiframe" selected>Adelie</option>
+            <option value="Gentooiframe">Gentoo</option>
+            <option value="Chinstrapiframe">Chinstrap</option>
+          </select>
+        </div>
+        
+        <span class="text-gray-400">|</span>
+        <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a>
+        <a href="/anchors/" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a>
+      </div>
     </nav>
     
     <div class="border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg">
       <iframe 
         name="species-frame" 
-        src="/speciesi-frame/Adelieiframe" 
+        src="/speciesi-frame/Adelieiframe/" 
         class="w-full"
         style="height: 600px; border: none;"
         id="species-iframe"
@@ -32,7 +38,7 @@ import Layout from "../layouts/Layout.astro";
       <h3 class="text-lg font-semibold mb-3">Navigation par Iframe</h3>
       <p class="text-gray-700">
         Cette page utilise une iframe pour afficher les différentes espèces de manchots. 
-        Cliquez sur les liens du menu pour charger les différentes pages dans l'iframe ci-dessus.
+        Utilisez le sélecteur du menu pour charger les différentes pages dans l'iframe ci-dessus.
         L'iframe se redimensionne automatiquement selon le contenu.
       </p>
     </div>
@@ -59,6 +65,15 @@ import Layout from "../layouts/Layout.astro";
       iframe.style.height = '600px';
     }
   }
+  
+  // Gestion du changement d'espèce dans le select
+  document.querySelector("#species-select")?.addEventListener("change", (evt) => {
+    const value = (evt.target as HTMLSelectElement).value;
+    const iframe = document.getElementById("species-iframe") as HTMLIFrameElement;
+    if (iframe && value) {
+      iframe.src = "/speciesi-frame/" + value + "/";
+    }
+  });
   
   // Redimensionner également au changement de contenu
   window.addEventListener('message', function(e) {

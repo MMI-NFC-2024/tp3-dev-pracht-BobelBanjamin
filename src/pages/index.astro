@@ -11,14 +11,22 @@ import penguins from "../assets/penguins.json";
     <p class="text-center text-gray-600 mb-8">Étude comparative des trois espèces de manchots</p>
 
     <nav class="mb-8">
-      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
-        <li><a href="/" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Accueil</a></li>
-        <li><a href="/species/Adelie" class="text-gray-600 hover:text-blue-600 transition-colors">Adelie</a></li>
-        <li><a href="/species/Gentoo" class="text-gray-600 hover:text-blue-600 transition-colors">Gentoo</a></li>
-        <li><a href="/species/Chinstrap" class="text-gray-600 hover:text-blue-600 transition-colors">Chinstrap</a></li>
-        <li><a href="/test-iframe" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a></li>
-        <li><a href="/anchors" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a></li>
-      </ul>
+      <div class="flex space-x-6 justify-center items-center bg-gray-100 p-4 rounded-lg">
+        <span class="font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Accueil</span>
+        
+        <div class="flex items-center space-x-2">
+          <label for="species-select" class="text-gray-600">Espèce:</label>
+          <select id="species-select" class="px-3 py-1 border border-gray-300 rounded-md bg-white text-gray-700 hover:border-blue-500 focus:outline-none focus:border-blue-500">
+            <option value="">Choisir une espèce</option>
+            <option value="Adelie">Adelie</option>
+            <option value="Gentoo">Gentoo</option>
+            <option value="Chinstrap">Chinstrap</option>
+          </select>
+        </div>
+        
+        <a href="/test-iframe/" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a>
+        <a href="/anchors/" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a>
+      </div>
     </nav>
 
     <div class="text-center mb-2">
@@ -53,7 +61,14 @@ import penguins from "../assets/penguins.json";
         <li><span class="inline-block w-3 h-3 rounded-full align-middle mr-1" style="background:#2ca02c"></span>Chinstrap</li>
       </ul>
     </div>
-
-    <!-- … le reste de ta page inchangé … -->
   </div>
 </Layout>
+
+<script>
+document.querySelector("#species-select")?.addEventListener("change", (evt) => {
+  const value = (evt.target as HTMLSelectElement).value;
+  if (value) {
+    location.pathname = "/species/" + value + "/";
+  }
+});
+</script>

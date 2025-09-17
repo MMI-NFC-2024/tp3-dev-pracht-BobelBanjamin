@@ -6,14 +6,20 @@ import GraphicSpecies from "../../components/GraphicSpecies.astro";
 <Layout>
   <div class="container mx-auto px-4 py-8">
     <nav class="mb-8">
-      <ul class="flex space-x-6 justify-center bg-gray-100 p-4 rounded-lg">
-        <li><a href="/species/Adelie" class="text-gray-600 hover:text-blue-600 transition-colors">Adelie</a></li>
-        <li><a href="/species/Gentoo" class="text-gray-600 hover:text-blue-600 transition-colors">Gentoo</a></li>
-        <li><a href="/species/Chinstrap" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Chinstrap</a></li>
-        <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a></li>
-        <li><a href="/test-iframe" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a></li>
-        <li><a href="/anchors" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a></li>
-      </ul>
+      <div class="flex space-x-6 justify-center items-center bg-gray-100 p-4 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <label for="species-select" class="text-gray-600">Espèce:</label>
+          <select id="species-select" class="px-3 py-1 border border-gray-300 rounded-md bg-white text-gray-700 hover:border-blue-500 focus:outline-none focus:border-blue-500">
+            <option value="Adelie">Adelie</option>
+            <option value="Gentoo">Gentoo</option>
+            <option value="Chinstrap" selected>Chinstrap</option>
+          </select>
+        </div>
+        
+        <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Accueil</a>
+        <a href="/test-iframe/" class="text-gray-600 hover:text-blue-600 transition-colors">Iframe</a>
+        <a href="/anchors/" class="text-gray-600 hover:text-blue-600 transition-colors">Ancres</a>
+      </div>
     </nav>
     
     <div class="text-center">
@@ -30,3 +36,10 @@ import GraphicSpecies from "../../components/GraphicSpecies.astro";
     </div>
   </div>
 </Layout>
+
+<script>
+document.querySelector("#species-select")?.addEventListener("change", (evt) => {
+  const value = (evt.target as HTMLSelectElement).value;
+  location.pathname = "/species/" + value + "/";
+});
+</script>
